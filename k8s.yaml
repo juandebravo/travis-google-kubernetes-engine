@@ -1,0 +1,40 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: travis-k8s-demo
+spec:
+  revisionHistoryLimit: 1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: travis-k8s-demo
+    spec:
+      containers:
+      - name: travis-k8s-demo
+        image: gcr.io/singular-hash-228518/travis-k8s-demo:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+        resources:
+          limits:
+            cpu: 70m
+          requests:
+            cpu: 70m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: travis-k8s-demo
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: travis-k8s-demo

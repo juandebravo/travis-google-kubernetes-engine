@@ -1,0 +1,13 @@
+{
+  "name": "travis-k8s-demo",
+  "version": "0.1.0",
+  "description": "Node.js on Docker",
+  "author": "Juan de Bravo <juandebravo@gmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
